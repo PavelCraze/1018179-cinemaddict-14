@@ -1,7 +1,7 @@
 # Проект «Киноман»
 
 * Студент: [Павел Орлов](https://up.htmlacademy.ru/ecmascript/14/user/1018179).
-* Наставник: `Неизвестно`.
+* Наставник: [Сергей Андреев](https://htmlacademy.ru/profile/id812127).
 
 ---
 
