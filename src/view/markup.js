@@ -1,4 +1,3 @@
-
 export const markup = () => {
   return `<section class="films">
     <section class="films-list">

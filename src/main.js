@@ -1,4 +1,3 @@
-
 import {menu} from "./view/menu";
 import {card} from "./view/card";
 import {markup} from "./view/markup";
@@ -10,36 +9,36 @@ import {show} from "./view/show";
 const NUMBER_OF_FILMS = 5;
 const TOP_FILMS = 2;
 const RATED_FILMS = 2;
-const siteHeader = document.querySelector(`.header`);
-const siteMain = document.querySelector(`.main`);
-const basementSite = document.querySelector(`.footer`);
+const headerElement = document.querySelector(`.header`);
+const mainElement = document.querySelector(`.main`);
+const footerElement = document.querySelector(`.footer`);
 
-const render = (container, template, place) => {
-  container.insertAdjacentHTML(place, template);
+const render = (container, template) => {
+  container.insertAdjacentHTML(`beforeend`, template);
 };
 
-render(siteHeader, rank(), `beforeend`);
-render(siteMain, menu(), `beforeend`);
-render(siteMain, markup(), `beforeend`);
+render(headerElement, rank());
+render(mainElement, menu());
+render(mainElement, markup());
 
 const cardWrapper = document.querySelector(`.films-list .films-list__container`);
 
 for (let i = 0; i < NUMBER_OF_FILMS; i++) {
-  render(cardWrapper, card(), `afterbegin`);
+  render(cardWrapper, card());
 }
 
 const filmWrapper = document.querySelector(`.films-list`);
 
-render(filmWrapper, show(), `beforeend`);
+render(filmWrapper, show());
 
-const cardTopRatedWrappers = document.querySelectorAll(`.films-list--extra .films-list__container`);
+const [topFilmsWrapper, ratedFilmsWrapper] = document.querySelectorAll(`.films-list--extra .films-list__container`);
 
 for (let i = 0; i < TOP_FILMS; i++) {
-  render(cardTopRatedWrappers[0], card(), `beforeend`);
+  render(topFilmsWrapper, card());
 }
 
 for (let i = 0; i < RATED_FILMS; i++) {
-  render(cardTopRatedWrappers[1], card(), `beforeend`);
+  render(ratedFilmsWrapper, card());
 }
 
-render(basementSite, popup(), `afterend`);
+render(footerElement, popup());
