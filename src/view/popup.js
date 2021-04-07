@@ -1,4 +1,4 @@
-import {emojiNames} from "../const";
+import {emojies} from "../const";
 
 const createGenresMarkup = (genres) => {
   return genres
@@ -70,7 +70,7 @@ export const popupTemplate = (film) => {
 
   const commentsMarkup = createCommentsMarkup(comments);
   const genresMarkup = createGenresMarkup(genreNames);
-  const emojiListMarkup = createEmojiListMarkup(emojiNames);
+  const emojiListMarkup = createEmojiListMarkup(emojies);
   const commentsWrapMarkup = createCommentsWrapMarkup(comments, commentsMarkup, emojiListMarkup);
   const genreTerm = genreNames.length > 1 ? `Genres` : `Genre`;
 
