@@ -1,5 +1,5 @@
-const emojiNames = [`smile`, `sleeping`, `puke`, `angry`];
-const filterNames = [`watchlist`, `history`, `favorites`];
-const cardfilters = [`isWatchlist`, `isHistory`, `isFavorite`];
+const emojies = [`smile`, `sleeping`, `puke`, `angry`];
+const filters = [`watchlist`, `history`, `favorites`];
+const cardFilters = [`isWatchlist`, `isHistory`, `isFavorite`];
 
-export {emojiNames, filterNames, cardfilters};
+export {emojies, filters, cardFilters};

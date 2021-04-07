@@ -30,7 +30,7 @@ const getNewArray = (ar) => {
   return array;
 };
 
-const movieTitles = [`The Dance of Life`, `Sagebrush Trail`, `The Man with the Golden Arm`, `Santa Claus Conquers the Martians`, `Popeye the Sailor Meets Sindbad the Sailor`];
+const titles = [`The Dance of Life`, `Sagebrush Trail`, `The Man with the Golden Arm`, `Santa Claus Conquers the Martians`, `Popeye the Sailor Meets Sindbad the Sailor`];
 const ages = [`21`, `8`, `15`];
 const directors = [`Hanz Hiher`, `Jimmy Flinstone`, `Bob Rock`];
 const writers = [`John Doe`, `Franz Ferdinant`, `Hanz Hiher`];
@@ -67,7 +67,7 @@ const booleanValues = [`true`, `false`];
 
 const generateFilmCard = () => {
   return {
-    movieTitle: movieTitles[getRandomInRange(0, movieTitles.length - 1)],
+    title: titles[getRandomInRange(0, titles.length - 1)],
     age: ages[getRandomInRange(0, ages.length - 1)],
     director: directors[getRandomInRange(0, directors.length - 1)],
     writers: getNewArray(writers).join(`, `).toString(),
