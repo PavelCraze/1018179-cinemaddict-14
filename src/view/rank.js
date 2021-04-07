@@ -1,4 +1,4 @@
-export const rank = () => {
+export const rankTemplate = () => {
   return `
     <section class="header__profile profile">
     <p class="profile__rating">Movie Buff</p>
