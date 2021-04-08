@@ -1,4 +1,4 @@
-export const show = () => {
+export const showTemplate = () => {
   return `
     <button class="films-list__show-more">Show more</button>`;
 };

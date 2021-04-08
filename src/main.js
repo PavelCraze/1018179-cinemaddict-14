@@ -1,12 +1,15 @@
-import {menu} from "./view/menu";
-import {card} from "./view/card";
-import {markup} from "./view/markup";
-import {popup} from "./view/popup";
-import {rank} from "./view/rank";
-import {show} from "./view/show";
+import {filterTemplate} from "./view/filter";
+import {sortTemplate} from "./view/sort";
+import {cardTemplate} from "./view/card";
+import {markupTemplate} from "./view/markup";
+import {popupTemplate} from "./view/popup";
+import {rankTemplate} from "./view/rank";
+import {showTemplate} from "./view/show";
+import {generateFilmCards} from "./mock/film-data.js";
 
 
-const NUMBER_OF_FILMS = 5;
+const NUMBER_OF_FILMS = 20;
+const TOTAL_NUMBER_OF_CARDS = 5;
 const TOP_FILMS = 2;
 const RATED_FILMS = 2;
 const headerElement = document.querySelector(`.header`);
@@ -17,28 +20,48 @@ const render = (container, template) => {
   container.insertAdjacentHTML(`beforeend`, template);
 };
 
-render(headerElement, rank());
-render(mainElement, menu());
-render(mainElement, markup());
+const films = generateFilmCards(NUMBER_OF_FILMS);
+
+render(headerElement, rankTemplate());
+render(mainElement, filterTemplate(films));
+render(mainElement, sortTemplate());
+render(mainElement, markupTemplate());
 
 const cardWrapper = document.querySelector(`.films-list .films-list__container`);
 
-for (let i = 0; i < NUMBER_OF_FILMS; i++) {
-  render(cardWrapper, card());
-}
+let showingCards = TOTAL_NUMBER_OF_CARDS;
+
+films.slice(0, showingCards)
+  .forEach((film) => render(cardWrapper, cardTemplate(film), `beforeend`));
+
 
 const filmWrapper = document.querySelector(`.films-list`);
 
-render(filmWrapper, show());
+render(filmWrapper, showTemplate());
 
 const [topFilmsWrapper, ratedFilmsWrapper] = document.querySelectorAll(`.films-list--extra .films-list__container`);
 
 for (let i = 0; i < TOP_FILMS; i++) {
-  render(topFilmsWrapper, card());
+  render(topFilmsWrapper, cardTemplate(films[i]));
 }
 
 for (let i = 0; i < RATED_FILMS; i++) {
-  render(ratedFilmsWrapper, card());
+  render(ratedFilmsWrapper, cardTemplate(films[i]));
 }
 
-render(footerElement, popup());
+const loadMoreButton = mainElement.querySelector(`.films-list__show-more`);
+
+loadMoreButton.addEventListener(`click`, () => {
+  const prevCards = showingCards;
+  showingCards = showingCards + TOTAL_NUMBER_OF_CARDS;
+
+  films.slice(prevCards, showingCards)
+    .forEach((film) => render(cardWrapper, cardTemplate(film), `beforeend`));
+
+  if (showingCards >= films.length) {
+    loadMoreButton.remove();
+  }
+});
+
+
+render(footerElement, popupTemplate(films[0]));
