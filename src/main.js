@@ -14,20 +14,10 @@ const TOTAL_NUMBER_OF_CARDS = 5;
 const TOP_FILMS = 2;
 const RATED_FILMS = 2;
 
-const films = generateFilmCards(NUMBER_OF_FILMS);
-const headerElement = document.querySelector(`.header`);
-const mainElement = document.querySelector(`.main`);
-const basicMarkup = new Markup();
-
-render(headerElement, new Rank().getElement());
-
-render(mainElement, new Filter(films).getElement());
-
-render(mainElement, new Sorting().getElement());
-
 const renderFilmCard = (filmListElement, film) => {
   const filmCard = new Card(film);
   const filmDetails = new Popup(film);
+
   const replaceFilmCardToDetails = () => {
     filmListElement.replaceChild(filmDetails.getElement(), filmCard.getElement());
     document.body.classList.add(`hide-overflow`);
@@ -83,13 +73,25 @@ const renderFilmCards = (markup, filmsArray) => {
   const [topFilmsWrapper, ratedFilmsWrapper] = document.querySelectorAll(`.films-list--extra .films-list__container`);
 
   for (let i = 0; i < TOP_FILMS; i++) {
-    render(topFilmsWrapper, new Card(films[i]).getElement());
+    render(topFilmsWrapper, new Card(filmsArray[i]).getElement());
   }
 
   for (let i = 0; i < RATED_FILMS; i++) {
-    render(ratedFilmsWrapper, new Card(films[i]).getElement());
+    render(ratedFilmsWrapper, new Card(filmsArray[i]).getElement());
   }
 };
 
+const films = generateFilmCards(NUMBER_OF_FILMS);
+const headerElement = document.querySelector(`.header`);
+const mainElement = document.querySelector(`.main`);
+const basicMarkup = new Markup();
+
+render(headerElement, new Rank().getElement());
+
+render(mainElement, new Filter(films).getElement());
+
+render(mainElement, new Sorting().getElement());
+
 render(mainElement, basicMarkup.getElement());
+
 renderFilmCards(basicMarkup, films);

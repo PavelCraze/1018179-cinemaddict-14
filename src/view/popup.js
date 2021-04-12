@@ -2,9 +2,9 @@ import {emojies} from "../const";
 import {createElement} from "../util.js";
 
 export default class Popup {
-  constructor({poster, movieTitle, age, director, writers, actors, rating, date, duration, country, genreNames, description, comments}) {
+  constructor({poster, title, age, director, writers, actors, rating, date, duration, country, genreNames, description, comments}) {
     this._poster = poster;
-    this._movieTitle = movieTitle;
+    this._title = title;
     this._age = age;
     this._director = director;
     this._writers = writers;
@@ -30,14 +30,14 @@ export default class Popup {
         </div>
         <div class="film-details__info-wrap">
           <div class="film-details__poster">
-            <img class="film-details__poster-img" src="./images/posters/${this._poster}" alt="${this._movieTitle}">
+            <img class="film-details__poster-img" src="./images/posters/${this._poster}" alt="${this._title}">
             <p class="film-details__age">${this._age}+</p>
           </div>
           <div class="film-details__info">
             <div class="film-details__info-head">
               <div class="film-details__title-wrap">
-                <h3 class="film-details__title">${this._movieTitle}</h3>
-                <p class="film-details__title-original">Original: ${this._movieTitle}</p>
+                <h3 class="film-details__title">${this._title}</h3>
+                <p class="film-details__title-original">Original: ${this._title}</p>
               </div>
               <div class="film-details__rating">
                 <p class="film-details__total-rating">${this._rating}</p>
