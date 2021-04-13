@@ -13,18 +13,22 @@ const NUMBER_OF_FILMS = 20;
 const TOTAL_NUMBER_OF_CARDS = 5;
 const TOP_FILMS = 2;
 const RATED_FILMS = 2;
+const films = generateFilmCards(NUMBER_OF_FILMS);
+const headerElement = document.querySelector(`.header`);
+const mainElement = document.querySelector(`.main`);
+const basicMarkup = new Markup();
 
 const renderFilmCard = (filmListElement, film) => {
   const filmCard = new Card(film);
   const filmDetails = new Popup(film);
 
   const replaceFilmCardToDetails = () => {
-    filmListElement.replaceChild(filmDetails.getElement(), filmCard.getElement());
+    render(document.body, filmDetails.getElement());
     document.body.classList.add(`hide-overflow`);
   };
 
   const replaceDetailsToFilmCard = () => {
-    filmListElement.replaceChild(filmCard.getElement(), filmDetails.getElement());
+    document.body.removeChild(filmDetails.getElement());
     document.body.classList.remove(`hide-overflow`);
   };
 
@@ -80,11 +84,6 @@ const renderFilmCards = (markup, filmsArray) => {
     render(ratedFilmsWrapper, new Card(filmsArray[i]).getElement());
   }
 };
-
-const films = generateFilmCards(NUMBER_OF_FILMS);
-const headerElement = document.querySelector(`.header`);
-const mainElement = document.querySelector(`.main`);
-const basicMarkup = new Markup();
 
 render(headerElement, new Rank().getElement());
 
