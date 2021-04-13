@@ -4,6 +4,7 @@ import Card from "./view/card";
 import Markup from "./view/markup";
 import Popup from "./view/popup";
 import Rank from "./view/rank";
+import Empty from "./view/emptyList";
 import LoadMoreButton from "./view/show";
 import {generateFilmCards} from "./mock/film-data";
 import {render} from "./util";
@@ -39,6 +40,13 @@ const renderFilmCard = (filmListElement, film) => {
     replaceFilmCardToDetails();
   });
 
+  document.addEventListener(`keydown`, function (evt) {
+    const key = evt.key;
+    if (key === `Escape`) {
+      replaceDetailsToFilmCard();
+    }
+  });
+
   const detailsClose = filmDetails.getElement().querySelector(`.film-details__close-btn`);
   detailsClose.addEventListener(`click`, (evt) => {
     evt.preventDefault();
@@ -49,39 +57,45 @@ const renderFilmCard = (filmListElement, film) => {
 const renderFilmCards = (markup, filmsArray) => {
   const filmWrapper = document.querySelector(`.films-list`);
   const filmListElement = markup.getElement().querySelector(`.films-list .films-list__container`);
+  const listEmpty = new Empty();
   let showingCards = TOTAL_NUMBER_OF_CARDS;
 
-  filmsArray.slice(0, showingCards)
+  if (NUMBER_OF_FILMS === 0) {
+    render(filmListElement, listEmpty.getElement());
+  } else {
+
+    filmsArray.slice(0, showingCards)
     .forEach((film) => {
       renderFilmCard(filmListElement, film);
     });
 
-  const loadMoreButton = new LoadMoreButton();
-  render(filmWrapper, loadMoreButton.getElement());
+    const loadMoreButton = new LoadMoreButton();
+    render(filmWrapper, loadMoreButton.getElement());
 
-  loadMoreButton.getElement().addEventListener(`click`, () => {
-    const prevCards = showingCards;
-    showingCards = showingCards + TOTAL_NUMBER_OF_CARDS;
+    loadMoreButton.getElement().addEventListener(`click`, () => {
+      const prevCards = showingCards;
+      showingCards = showingCards + TOTAL_NUMBER_OF_CARDS;
 
-    filmsArray.slice(prevCards, showingCards)
+      filmsArray.slice(prevCards, showingCards)
       .forEach((film) => {
         renderFilmCard(filmListElement, film);
       });
 
-    if (showingCards >= filmsArray.length) {
-      loadMoreButton.getElement().remove();
-      loadMoreButton.removeElement();
+      if (showingCards >= filmsArray.length) {
+        loadMoreButton.getElement().remove();
+        loadMoreButton.removeElement();
+      }
+    });
+
+    const [topFilmsWrapper, ratedFilmsWrapper] = document.querySelectorAll(`.films-list--extra .films-list__container`);
+
+    for (let i = 0; i < TOP_FILMS; i++) {
+      render(topFilmsWrapper, new Card(filmsArray[i]).getElement());
     }
-  });
 
-  const [topFilmsWrapper, ratedFilmsWrapper] = document.querySelectorAll(`.films-list--extra .films-list__container`);
-
-  for (let i = 0; i < TOP_FILMS; i++) {
-    render(topFilmsWrapper, new Card(filmsArray[i]).getElement());
-  }
-
-  for (let i = 0; i < RATED_FILMS; i++) {
-    render(ratedFilmsWrapper, new Card(filmsArray[i]).getElement());
+    for (let i = 0; i < RATED_FILMS; i++) {
+      render(ratedFilmsWrapper, new Card(filmsArray[i]).getElement());
+    }
   }
 };
 
