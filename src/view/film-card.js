@@ -1,6 +1,6 @@
 import {createElement} from "../util.js";
 
-export default class Card {
+export default class FilmCard {
 
   constructor({title, rating, date, duration, genreNames, poster, description, comments}) {
     this._title = title;

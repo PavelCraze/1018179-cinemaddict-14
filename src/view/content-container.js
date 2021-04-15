@@ -1,6 +1,6 @@
 import {createElement} from "../util.js";
 
-export default class Markup {
+export default class ContentContainer {
 
   constructor() {
     this._element = null;

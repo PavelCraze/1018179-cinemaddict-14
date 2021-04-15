@@ -1,10 +1,10 @@
 import Filter from "./view/filter";
 import Sorting from "./view/sort";
-import Card from "./view/card";
-import Markup from "./view/markup";
+import FilmCard from "./view/film-card";
+import ContentContainer from "./view/content-container";
 import Popup from "./view/popup";
 import Rank from "./view/rank";
-import Empty from "./view/emptyList";
+import ListEmpty from "./view/list-empty";
 import LoadMoreButton from "./view/show";
 import {generateFilmCards} from "./mock/film-data";
 import {render} from "./util";
@@ -17,54 +17,55 @@ const RATED_FILMS = 2;
 const films = generateFilmCards(NUMBER_OF_FILMS);
 const headerElement = document.querySelector(`.header`);
 const mainElement = document.querySelector(`.main`);
-const basicMarkup = new Markup();
+const basicMarkup = new ContentContainer();
 
 const renderFilmCard = (filmListElement, film) => {
-  const filmCard = new Card(film);
-  const filmDetails = new Popup(film);
-
-  const replaceFilmCardToDetails = () => {
-    render(document.body, filmDetails.getElement());
-    document.body.classList.add(`hide-overflow`);
-  };
-
-  const replaceDetailsToFilmCard = () => {
-    document.body.removeChild(filmDetails.getElement());
-    document.body.classList.remove(`hide-overflow`);
-  };
+  const filmCard = new FilmCard(film);
+  const popup = new Popup(film);
 
   render(filmListElement, filmCard.getElement());
 
   filmCard._element.addEventListener(`click`, (evt) => {
     evt.preventDefault();
-    replaceFilmCardToDetails();
+    replaceFilmCardToDetails(popup);
   });
 
-  document.addEventListener(`keydown`, function (evt) {
+  document.addEventListener(`keydown`, (evt) => {
     const key = evt.key;
     if (key === `Escape`) {
-      replaceDetailsToFilmCard();
+      replaceDetailsToFilmCard(popup);
     }
   });
 
-  const detailsClose = filmDetails.getElement().querySelector(`.film-details__close-btn`);
+  const detailsClose = popup.getElement().querySelector(`.film-details__close-btn`);
   detailsClose.addEventListener(`click`, (evt) => {
     evt.preventDefault();
-    replaceDetailsToFilmCard();
+    replaceDetailsToFilmCard(popup);
   });
 };
 
-const renderFilmCards = (markup, filmsArray) => {
+const replaceFilmCardToDetails = (el) => {
+  render(document.body, el.getElement());
+  document.body.classList.add(`hide-overflow`);
+};
+
+const replaceDetailsToFilmCard = (el) => {
+  document.body.removeChild(el.getElement());
+  document.body.classList.remove(`hide-overflow`);
+};
+
+// eslint-disable-next-line no-shadow
+const renderFilmCards = (markup, films) => {
   const filmWrapper = document.querySelector(`.films-list`);
   const filmListElement = markup.getElement().querySelector(`.films-list .films-list__container`);
-  const listEmpty = new Empty();
+  const listEmpty = new ListEmpty();
   let showingCards = TOTAL_NUMBER_OF_CARDS;
 
   if (NUMBER_OF_FILMS === 0) {
     render(filmListElement, listEmpty.getElement());
   } else {
 
-    filmsArray.slice(0, showingCards)
+    films.slice(0, showingCards)
     .forEach((film) => {
       renderFilmCard(filmListElement, film);
     });
@@ -76,12 +77,12 @@ const renderFilmCards = (markup, filmsArray) => {
       const prevCards = showingCards;
       showingCards = showingCards + TOTAL_NUMBER_OF_CARDS;
 
-      filmsArray.slice(prevCards, showingCards)
+      films.slice(prevCards, showingCards)
       .forEach((film) => {
         renderFilmCard(filmListElement, film);
       });
 
-      if (showingCards >= filmsArray.length) {
+      if (showingCards >= films.length) {
         loadMoreButton.getElement().remove();
         loadMoreButton.removeElement();
       }
@@ -90,11 +91,11 @@ const renderFilmCards = (markup, filmsArray) => {
     const [topFilmsWrapper, ratedFilmsWrapper] = document.querySelectorAll(`.films-list--extra .films-list__container`);
 
     for (let i = 0; i < TOP_FILMS; i++) {
-      render(topFilmsWrapper, new Card(filmsArray[i]).getElement());
+      render(topFilmsWrapper, new FilmCard(films[i]).getElement());
     }
 
     for (let i = 0; i < RATED_FILMS; i++) {
-      render(ratedFilmsWrapper, new Card(filmsArray[i]).getElement());
+      render(ratedFilmsWrapper, new FilmCard(films[i]).getElement());
     }
   }
 };

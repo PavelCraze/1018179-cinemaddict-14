@@ -1,6 +1,6 @@
 import {createElement} from "../util.js";
 
-export default class Empty {
+export default class ListEmpty {
 
   constructor() {
     this._element = null;
