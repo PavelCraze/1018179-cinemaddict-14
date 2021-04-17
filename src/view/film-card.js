@@ -1,5 +1,8 @@
 import AbstractComponent from "./abstract-component.js";
 
+const CLASS_NAMES_BLACK_LIST = [`film-card__poster`, `film-card__title`, `film-card__comments`];
+const isBlackListClassName = (className) => CLASS_NAMES_BLACK_LIST.includes(className);
+
 export default class FilmCard extends AbstractComponent {
 
   constructor({title, rating, date, duration, genreNames, poster, description, comments}) {
@@ -42,9 +45,7 @@ export default class FilmCard extends AbstractComponent {
   }
 
   _clickHandler(evt) {
-    if (evt.target.className !== `film-card__poster`
-      && evt.target.className !== `film-card__title`
-      && evt.target.className !== `film-card__comments`) {
+    if (!isBlackListClassName(evt.target.className)) {
       return;
     }
 
