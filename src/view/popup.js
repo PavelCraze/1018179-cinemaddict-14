@@ -1,8 +1,10 @@
 import {emojies} from "../const";
-import {createElement} from "../util.js";
+import AbstractComponent from "./abstract-component";
 
-export default class Popup {
+export default class Popup extends AbstractComponent {
   constructor({poster, title, age, director, writers, actors, rating, date, duration, country, genreNames, description, comments}) {
+    super();
+    this._element = null;
     this._poster = poster;
     this._title = title;
     this._age = age;
@@ -16,8 +18,9 @@ export default class Popup {
     this._genreNames = genreNames;
     this._description = description;
     this._comments = comments;
+    this._callback = {};
 
-    this._element = null;
+    this._closeButtonClickHandler = this._closeButtonClickHandler.bind(this);
   }
 
   getTemplate() {
@@ -144,15 +147,16 @@ export default class Popup {
     );
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
+  _closeButtonClickHandler(evt) {
+    evt.preventDefault();
+    this._callback.click();
   }
 
-  removeElement() {
-    this._element = null;
+  setCloseButtonClickHandler(callback) {
+    this._callback.click = callback;
+
+    this.getElement()
+      .querySelector(`.film-details__close-btn`)
+      .addEventListener(`click`, this._closeButtonClickHandler);
   }
 }
