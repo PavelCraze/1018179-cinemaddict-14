@@ -1,5 +1,5 @@
 import {filters, cardFilters} from "../const";
-import {createElement} from "../util.js";
+import AbstractComponent from "./abstract-component";
 
 
 const getNameFilter = (array, name) => {
@@ -8,8 +8,9 @@ const getNameFilter = (array, name) => {
   });
 };
 
-export default class Filter {
+export default class Filter extends AbstractComponent {
   constructor(films) {
+    super();
     this._films = films;
     this._element = null;
   }
@@ -30,17 +31,5 @@ export default class Filter {
       <a href="#stats" class="main-navigation__additional">Stats</a>
     </nav>`
     );
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

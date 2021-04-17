@@ -1,8 +1,10 @@
-import {createElement} from "../util.js";
+import AbstractComponent from "./abstract-component.js";
 
-export default class FilmCard {
+export default class FilmCard extends AbstractComponent {
 
   constructor({title, rating, date, duration, genreNames, poster, description, comments}) {
+    super();
+    this._element = null;
     this._title = title;
     this._rating = rating;
     this._date = date;
@@ -12,7 +14,9 @@ export default class FilmCard {
     this._description = description;
     this._comments = comments;
 
-    this._element = null;
+    this._callback = {};
+
+    this._clickHandler = this._clickHandler.bind(this);
 
   }
 
@@ -37,16 +41,22 @@ export default class FilmCard {
   </article>`);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
+  _clickHandler(evt) {
+    if (evt.target.className !== `film-card__poster`
+      && evt.target.className !== `film-card__title`
+      && evt.target.className !== `film-card__comments`) {
+      return;
     }
 
-    return this._element;
+    evt.preventDefault();
+    this._callback.click();
   }
 
-  removeElement() {
-    this._element = null;
+  setClickHandler(callback) {
+    this._callback.click = callback;
+
+    this.getElement()
+      .addEventListener(`click`, this._clickHandler);
   }
 }
 

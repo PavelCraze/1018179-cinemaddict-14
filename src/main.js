@@ -25,8 +25,7 @@ const renderFilmCard = (filmListElement, film) => {
 
   render(filmListElement, filmCard.getElement());
 
-  filmCard._element.addEventListener(`click`, (evt) => {
-    evt.preventDefault();
+  filmCard.setClickHandler(() => {
     replaceFilmCardToDetails(popup);
   });
 
@@ -37,9 +36,7 @@ const renderFilmCard = (filmListElement, film) => {
     }
   });
 
-  const detailsClose = popup.getElement().querySelector(`.film-details__close-btn`);
-  detailsClose.addEventListener(`click`, (evt) => {
-    evt.preventDefault();
+  popup.setCloseButtonClickHandler(() => {
     replaceDetailsToFilmCard(popup);
   });
 };

@@ -1,8 +1,9 @@
-import {createElement} from "../util.js";
+import AbstractComponent from "./abstract-component.js";
 
 
-export default class LoadMoreButton {
+export default class LoadMoreButton extends AbstractComponent {
   constructor() {
+    super();
     this._element = null;
   }
 
@@ -12,15 +13,8 @@ export default class LoadMoreButton {
     );
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
+  setClickHandler(callback) {
+    this._callback.click = callback;
+    this.getElement().addEventListener(`click`, this._clickHandler);
   }
 }
