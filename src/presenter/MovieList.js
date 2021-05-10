@@ -42,6 +42,7 @@ export default class MovieListPresenter {
   }
 
   _renderFilmCard(film) {
+    console.log(film);
     const filmListElement = document.querySelector(`.films-list .films-list__container`);
     const filmCard = new MoviePresenter(filmListElement, this._handleFilmChange);
     filmCard.init(film);

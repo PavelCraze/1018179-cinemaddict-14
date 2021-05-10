@@ -1,5 +1,12 @@
 import AbstractComponent from "../src/view/abstract-component";
 
+export const createElement = (template) => {
+  const newElement = document.createElement(`div`);
+  newElement.innerHTML = template;
+
+  return newElement.firstChild;
+};
+
 export const isFilmWatchlist = (isWatchlist) => {
   return Object.values(isWatchlist).some(Boolean);
 };
@@ -10,13 +17,6 @@ export const isFilmHistory = (isHistory) => {
 
 export const isFilmFavorite = (isFavorite) => {
   return Object.values(isFavorite).some(Boolean);
-};
-
-export const createElement = (template) => {
-  const newElement = document.createElement(`div`);
-  newElement.innerHTML = template;
-
-  return newElement.firstChild;
 };
 
 export const render = (container, child) => {

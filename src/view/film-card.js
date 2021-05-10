@@ -1,11 +1,12 @@
 import AbstractComponent from "./abstract-component.js";
+// import {isWatchlist, isHistory, isFavorite} from '../util.js';
 
 const CLASS_NAMES_BLACK_LIST = [`film-card__poster`, `film-card__title`, `film-card__comments`];
 const isBlackListClassName = (className) => CLASS_NAMES_BLACK_LIST.includes(className);
 
 export default class FilmCard extends AbstractComponent {
 
-  constructor({title, rating, date, duration, genreNames, poster, description, comments, id}) {
+  constructor({title, rating, date, duration, genreNames, poster, description, comments, isWatchlist, isFavorite, isHistory, id}) {
     super();
     this._element = null;
     this._title = title;
@@ -17,6 +18,10 @@ export default class FilmCard extends AbstractComponent {
     this._description = description;
     this._id = id;
     this._comments = comments;
+    this._isWatchlist = isWatchlist;
+    this._isHistory = isHistory;
+    this._isFavorite = isFavorite;
+
 
     this._callback = {};
 
@@ -41,9 +46,9 @@ export default class FilmCard extends AbstractComponent {
       <p class="film-card__description">${this._description}</p>
       <a class="film-card__comments">${this._comments.length} comments</a>
       <form class="film-card__controls">
-        <button class="film-card__controls-item button film-card__controls-item--add-to-watchlist">Add to watchlist</button>
-        <button class="film-card__controls-item button film-card__controls-item--mark-as-watched">Mark as watched</button>
-        <button class="film-card__controls-item button film-card__controls-item--favorite">Mark as favorite</button>
+      <button class="film-card__controls-item button film-card__controls-item--add-to-watchlist ${this._isWatchlist ? `film-card__controls-item--active` : ``}" type="button">Add to watchlist</button>
+      <button class="film-card__controls-item button film-card__controls-item--mark-as-watched ${this._isHistory ? `film-card__controls-item--active` : ``}" type="button">Mark as watched</button>
+      <button class="film-card__controls-item button film-card__controls-item--favorite ${this._isFavorite ? `film-card__controls-item--active` : ``}" type="button">Mark as favorite</button>
       </form>
   </article>`);
   }

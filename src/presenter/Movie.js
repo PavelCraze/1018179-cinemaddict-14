@@ -80,7 +80,7 @@ export default class MoviePresenter {
             {},
             this._film,
             {
-              isFavorite: !this._film.isWatched
+              isWatched: !this._film.isWatched
             }
         )
     );
@@ -92,7 +92,7 @@ export default class MoviePresenter {
             {},
             this._film,
             {
-              isFavorite: !this._film.isWatchlist
+              isWatchlist: !this._film.isWatchlist
             }
         )
     );

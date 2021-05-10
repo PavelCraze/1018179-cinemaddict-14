@@ -52,12 +52,18 @@ const comments = [{
   text: `Very very bad. Sad`,
   author: `Billy Joe`,
   emoji: `angry`,
-  day: `2 days ago`
+  day: `23 days ago`
 }, {
   text: `Tooo long`,
   author: `Harry Dotter`,
   emoji: `sleeping`,
   day: `Today`
+},
+{
+  text: `Nice Job u fixed it`,
+  author: `Alex Pavlov`,
+  emoji: `smile`,
+  day: `14 days ago`
 }];
 
 const startDate = new Date(1920, 1, 1).getTime();
