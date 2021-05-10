@@ -55,9 +55,9 @@ export default class MovieListPresenter {
     render(this._moviesContainer, this._listEmpty);
   }
 
-  _handleFilmChange(updatedTask) {
-    this._boardTasks = updateItem(this._boardTasks, updatedTask);
-    this._taskPresenter[updatedTask.id].init(updatedTask);
+  _handleFilmChange(updatedFilm) {
+    this._filmsList = updateItem(this._filmsList, updatedFilm);
+    this._taskPresenter[updatedFilm.id].init(updatedFilm);
   }
 
   _handleLoadMoreButtonClick() {
