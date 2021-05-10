@@ -42,7 +42,6 @@ export default class MovieListPresenter {
   }
 
   _renderFilmCard(film) {
-    console.log(film);
     const filmListElement = document.querySelector(`.films-list .films-list__container`);
     const filmCard = new MoviePresenter(filmListElement, this._handleFilmChange);
     filmCard.init(film);
@@ -76,7 +75,7 @@ export default class MovieListPresenter {
   _renderLoadMoreButton() {
     const filmWrapper = document.querySelector(`.films-list`);
     render(filmWrapper, this._loadMoreButton);
-    // this._loadMoreButton.setClickHandler(this._handleLoadMoreButtonClick);
+    this._loadMoreButton.setClickHandler(this._handleLoadMoreButtonClick);
   }
 
   _renderFilmsList() {
@@ -97,11 +96,11 @@ export default class MovieListPresenter {
     const ratedFilms = new MoviePresenter(ratedFilmsWrapper);
 
     for (let i = 0; i < TOP_FILMS; i++) {
-      render(topFilmsWrapper, topFilms.init(filmsList[i]));
+      topFilms.init(filmsList[i]);
     }
 
     for (let i = 0; i < TOP_FILMS; i++) {
-      render(ratedFilmsWrapper, ratedFilms.init(filmsList[i]));
+      ratedFilms.init(filmsList[i]);
     }
   }
 }
