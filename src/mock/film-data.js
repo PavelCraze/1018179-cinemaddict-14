@@ -69,7 +69,7 @@ const comments = [{
 const startDate = new Date(1920, 1, 1).getTime();
 const finalDate = new Date(2020, 3, 1).getTime();
 const durations = [`1h 40m`, `2h 25m`, `2h 45m`];
-const booleanValues = [`true`, `false`];
+const booleanValues = [true, false];
 
 const id = () =>{
 

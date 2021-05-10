@@ -168,15 +168,15 @@ export default class Popup extends AbstractComponent {
   }
 
   _favoriteCheckboxClickHandler() {
-    this._handler.clickFavorite(this._data.id);
+    this._callback.clickFavorite(this._id);
   }
 
   _watchedCheckboxClickHandler() {
-    this._callback.clickWatched(this._data.id);
+    this._callback.clickWatched(this._id);
   }
 
   _watchlistCheckboxClickHandler() {
-    this._callback.clickWatchlist(this._data.id);
+    this._callback.clickWatchlist(this._id);
   }
 
   setFavoriteCheckboxClickHandler(callback) {
@@ -187,16 +187,16 @@ export default class Popup extends AbstractComponent {
       .addEventListener(`click`, this._favoriteCheckboxClickHandler);
   }
 
-  setWatchedCheckboxClickHandler(handler) {
-    this._handler.clickWatched = handler;
+  setWatchedCheckboxClickHandler(callback) {
+    this._callback.clickWatched = callback;
 
     this.getElement()
       .querySelector(`#watched`)
       .addEventListener(`click`, this._watchedCheckboxClickHandler);
   }
 
-  setWatchlistCheckboxClickHandler(handler) {
-    this._handler.clickWatchlist = handler;
+  setWatchlistCheckboxClickHandler(callback) {
+    this._callback.clickWatchlist = callback;
 
     this.getElement()
       .querySelector(`#watchlist`)

@@ -4,7 +4,7 @@ import AbstractComponent from "./abstract-component";
 
 const getNameFilter = (array, name) => {
   return array.filter((element) => {
-    return element[name] === `true`;
+    return element[name] === true;
   });
 };
 

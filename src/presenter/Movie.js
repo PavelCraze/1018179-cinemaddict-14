@@ -1,6 +1,6 @@
 import FilmCard from "../view/film-card";
 import Popup from "../view/popup";
-import {render} from "../util";
+import {render, replace, remove} from "../util";
 
 
 export default class MoviePresenter {
@@ -20,39 +20,55 @@ export default class MoviePresenter {
   }
 
   init(film) {
+    this._film = film;
+
+    const prevFilmCard = this._filmCard;
+    const prevPopup = this._popup;
+
     this._filmCard = new FilmCard(film);
     this._popup = new Popup(film);
 
     this._filmCard.setClickHandler(this._handleCardClick);
     this._filmCard.setFavoriteButtonClickHandler(this._handleFavoriteClick);
-    // this._filmCard.setWatchedButtonClickHandler(this._handleWatchedClick);
-    // this._filmCard.setWatchlistButtonClickHandler(this._handleWatchlistClick);
-    this._popup.setCloseButtonClickHandler(this._handleCloseClick);
-    this._popup.setFavoriteCheckboxClickHandler(this._handleFavoriteClick);
-    // this._popup.setWatchedCheckboxClickHandler(this._handleWatchedClick);
-    // this._popup.setWatchlistCheckboxClickHandler(this._handleWatchlistClick);
+    this._filmCard.setWatchedButtonClickHandler(this._handleWatchedClick);
+    this._filmCard.setWatchlistButtonClickHandler(this._handleWatchlistClick);
 
-    render(this._filmsListContainer, this._filmCard);
+
+    if (prevFilmCard === null || prevPopup === null) {
+      render(this._filmsListContainer, this._filmCard);
+      return;
+    }
+
+    if (this._filmsListContainer.contains(prevFilmCard.getElement())) {
+      replace(this._filmCard, prevFilmCard);
+    }
+    if (this._filmsListContainer.contains(prevPopup.getElement())) {
+      replace(this._popup, prevPopup);
+    }
   }
 
-  _replaceFilmCardToPopup(el) {
-    render(document.body, el.getElement());
+  _replaceFilmCardToPopup() {
+    render(document.body, this._popup);
     document.body.classList.add(`hide-overflow`);
     document.addEventListener(`keydown`, this._escKeyDownHandler);
+    this._popup.setCloseButtonClickHandler(this._handleCloseClick);
+    this._popup.setFavoriteCheckboxClickHandler(this._handleFavoriteClick);
+    this._popup.setWatchedCheckboxClickHandler(this._handleWatchedClick);
+    this._popup.setWatchlistCheckboxClickHandler(this._handleWatchlistClick);
   }
 
-  _replacePopupToFilmCard(el) {
-    document.body.removeChild(el.getElement());
+  _replacePopupToFilmCard() {
+    remove(this._popup);
     document.body.classList.remove(`hide-overflow`);
     document.removeEventListener(`keydown`, this._escKeyDownHandler);
   }
 
   _handleCardClick() {
-    this._replaceFilmCardToPopup(this._popup);
+    this._replaceFilmCardToPopup();
   }
 
   _handleCloseClick() {
-    this._replacePopupToFilmCard(this._popup);
+    this._replacePopupToFilmCard();
   }
 
   _escKeyDownHandler(evt) {
@@ -63,7 +79,6 @@ export default class MoviePresenter {
   }
 
   _handleFavoriteClick() {
-    console.log('yyyeeeeaaaww');
     this._changeData(
         Object.assign(
             {},
@@ -81,7 +96,7 @@ export default class MoviePresenter {
             {},
             this._film,
             {
-              isWatched: !this._film.isWatched
+              isHistory: !this._film.isHistory
             }
         )
     );

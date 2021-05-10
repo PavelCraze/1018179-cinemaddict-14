@@ -106,7 +106,7 @@ export default class FilmCard extends AbstractComponent {
     this._callback.clickWatched = callback;
 
     this.getElement()
-      .querySelector(`.film-card__controls-item--watched`)
+      .querySelector(`.film-card__controls-item--mark-as-watched`)
       .addEventListener(`click`, this._watchedButtonClickHandler);
   }
 
@@ -114,7 +114,7 @@ export default class FilmCard extends AbstractComponent {
     this._callback.clickWatchlist = callback;
 
     this.getElement()
-      .querySelector(`.film-card__controls-item--watchlist`)
+      .querySelector(`.film-card__controls-item--add-to-watchlist`)
       .addEventListener(`click`, this._watchlistButtonClickHandler);
   }
 }

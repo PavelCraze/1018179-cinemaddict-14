@@ -28,7 +28,7 @@ export default class MovieListPresenter {
     this._renderSort();
     render(this._moviesContainer, this._contentContainer);
     this._renderFilmsList(this._filmsList);
-    this. _renderTopRatedFilms(filmsList);
+    this._renderTopRatedFilms(filmsList);
   }
 
   _renderFilter(filmsList) {
