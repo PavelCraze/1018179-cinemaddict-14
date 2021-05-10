@@ -24,13 +24,13 @@ export default class MoviePresenter {
     this._popup = new Popup(film);
 
     this._filmCard.setClickHandler(this._handleCardClick);
-    this._filmCard.setFavoriteButtonClickHandler = this._handleFavoriteClick.bind(this);
-    this._filmCard.setWatchedButtonClickHandler = this._handleWatchedClick.bind(this);
-    this._filmCard.setWatchlistButtonClickHandler = this._handleWatchlistClick.bind(this);
+    this._filmCard.setFavoriteButtonClickHandler(this._handleFavoriteClick);
+    // this._filmCard.setWatchedButtonClickHandler(this._handleWatchedClick);
+    // this._filmCard.setWatchlistButtonClickHandler(this._handleWatchlistClick);
     this._popup.setCloseButtonClickHandler(this._handleCloseClick);
-    this._popup.setFavoriteCheckboxClickHandler = this._handleFavoriteClick.bind(this);
-    this._popup.setWatchedCheckboxClickHandler = this._handleWatchedClick.bind(this);
-    this._popup.setWatchlistCheckboxClickHandler = this._handleWatchlistClick.bind(this);
+    this._popup.setFavoriteCheckboxClickHandler(this._handleFavoriteClick);
+    // this._popup.setWatchedCheckboxClickHandler(this._handleWatchedClick);
+    // this._popup.setWatchlistCheckboxClickHandler(this._handleWatchlistClick);
 
     render(this._filmsListContainer, this._filmCard);
   }
@@ -63,6 +63,7 @@ export default class MoviePresenter {
   }
 
   _handleFavoriteClick() {
+    console.log('yyyeeeeaaaww');
     this._changeData(
         Object.assign(
             {},
