@@ -12,6 +12,8 @@ export default class MovieListPresenter {
   constructor(moviesContainer) {
     this._moviesContainer = moviesContainer;
     this._renderedCards = CARDS_COUNT_PER_STEP;
+    this._filmCard = {};
+
     this._contentContainer = new ContentContainer();
     this._listEmpty = new ListEmpty();
     this._loadMoreButton = new LoadMoreButton();
@@ -43,6 +45,7 @@ export default class MovieListPresenter {
     const filmListElement = document.querySelector(`.films-list .films-list__container`);
     const filmCard = new MoviePresenter(filmListElement, this._handleFilmChange);
     filmCard.init(film);
+    this._filmCard[film.id] = filmCard;
   }
 
   _renderFilmCards(from, to) {
@@ -57,7 +60,7 @@ export default class MovieListPresenter {
 
   _handleFilmChange(updatedFilm) {
     this._filmsList = updateItem(this._filmsList, updatedFilm);
-    this._taskPresenter[updatedFilm.id].init(updatedFilm);
+    this._filmCard[updatedFilm.id].init(updatedFilm);
   }
 
   _handleLoadMoreButtonClick() {

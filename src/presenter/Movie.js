@@ -63,7 +63,6 @@ export default class MoviePresenter {
   }
 
   _handleFavoriteClick() {
-    console.log('favor');
     this._changeData(
         Object.assign(
             {},
