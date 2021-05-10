@@ -25,9 +25,9 @@ export default class Popup extends AbstractComponent {
     this._callback = {};
 
     this._closeButtonClickHandler = this._closeButtonClickHandler.bind(this);
-    this._favoriteCheckboxClickHandler = this._closeButtonClickHandler.bind(this);
-    this._watchedCheckboxClickHandler = this._closeButtonClickHandler.bind(this);
-    this._watchlistCheckboxClickHandler = this._closeButtonClickHandler.bind(this);
+    this._favoriteCheckboxClickHandler = this._favoriteCheckboxClickHandler.bind(this);
+    this._watchedCheckboxClickHandler = this._watchedCheckboxClickHandler.bind(this);
+    this._watchlistCheckboxClickHandler = this._watchlistCheckboxClickHandler.bind(this);
   }
 
   getTemplate() {
