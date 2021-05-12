@@ -2,14 +2,21 @@ import FilmCard from "../view/film-card";
 import Popup from "../view/popup";
 import {render, replace, remove} from "../util";
 
+const Mode = {
+  CARD: `CARD`,
+  POPUP: `POPUP`,
+};
+
 
 export default class MoviePresenter {
-  constructor(filmsListContainer, changeData) {
+  constructor(filmsListContainer, changeData, changeMode) {
     this._filmsListContainer = filmsListContainer;
     this._changeData = changeData;
+    this._changeMode = changeMode;
 
     this._filmCard = null;
     this._popup = null;
+    this._mode = Mode.CARD;
 
     this._handleCardClick = this._handleCardClick.bind(this);
     this._handleFavoriteClick = this._handleFavoriteClick.bind(this);
@@ -39,10 +46,10 @@ export default class MoviePresenter {
       return;
     }
 
-    if (this._filmsListContainer.contains(prevFilmCard.getElement())) {
+    if (this._mode === Mode.CARD) {
       replace(this._filmCard, prevFilmCard);
     }
-    if (this._filmsListContainer.contains(prevPopup.getElement())) {
+    if (this._mode === Mode.POPUP) {
       replace(this._popup, prevPopup);
     }
   }
@@ -55,12 +62,15 @@ export default class MoviePresenter {
     this._popup.setFavoriteCheckboxClickHandler(this._handleFavoriteClick);
     this._popup.setWatchedCheckboxClickHandler(this._handleWatchedClick);
     this._popup.setWatchlistCheckboxClickHandler(this._handleWatchlistClick);
+    this._changeMode();
+    this._mode = Mode.POPUP;
   }
 
   _replacePopupToFilmCard() {
     remove(this._popup);
     document.body.classList.remove(`hide-overflow`);
     document.removeEventListener(`keydown`, this._escKeyDownHandler);
+    this._mode = Mode.CARD;
   }
 
   _handleCardClick() {
@@ -74,7 +84,18 @@ export default class MoviePresenter {
   _escKeyDownHandler(evt) {
     if (evt.key === `Escape` || evt.key === `Esc`) {
       evt.preventDefault();
-      this._replacePopupToFilmCard(this._popup);
+      this._replacePopupToFilmCard();
+    }
+  }
+
+  destroy() {
+    remove(this._filmCard);
+    // remove(this._popup);
+  }
+
+  resetView() {
+    if (this._mode !== Mode.CARD) {
+      this._replacePopupToFilmCard();
     }
   }
 

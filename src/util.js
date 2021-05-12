@@ -57,6 +57,7 @@ export const remove = (component) => {
   if (!(component instanceof AbstractComponent)) {
     throw new Error(`Can remove only components`);
   }
+
   component.getElement().remove();
   component.removeElement();
 };
@@ -74,3 +75,12 @@ export const updateItem = (items, update) => {
     ...items.slice(index + 1),
   ];
 };
+
+
+export function sortFilmsByDate(filmA, filmB) {
+  return filmB.date - filmA.date;
+}
+
+export function sortFilmsByRating(filmA, filmB) {
+  return filmB.rating - filmA.rating;
+}
