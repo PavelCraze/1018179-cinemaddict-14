@@ -1,6 +1,6 @@
 import Filter from "../view/filter";
 import Sorting from "../view/sort";
-import MoviePresenter from "./Movie";
+import MoviePresenter from "./movie";
 import ContentContainer from "../view/content-container";
 import ListEmpty from "../view/list-empty";
 import LoadMoreButton from "../view/show";

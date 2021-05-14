@@ -1,5 +1,4 @@
 import AbstractComponent from "./abstract-component.js";
-// import {isWatchlist, isHistory, isFavorite} from '../util.js';
 
 const CLASS_NAMES_BLACK_LIST = [`film-card__poster`, `film-card__title`, `film-card__comments`];
 const isBlackListClassName = (className) => CLASS_NAMES_BLACK_LIST.includes(className);

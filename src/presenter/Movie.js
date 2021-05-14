@@ -7,7 +7,6 @@ const Mode = {
   POPUP: `POPUP`,
 };
 
-
 export default class MoviePresenter {
   constructor(filmsListContainer, changeData, changeMode) {
     this._filmsListContainer = filmsListContainer;

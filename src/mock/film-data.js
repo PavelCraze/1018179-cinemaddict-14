@@ -72,7 +72,6 @@ const durations = [`1h 40m`, `2h 25m`, `2h 45m`];
 const booleanValues = [true, false];
 
 const id = () =>{
-
   return getRandomInRange(0, 1e6).toString();
 };
 
