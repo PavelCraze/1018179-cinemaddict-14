@@ -143,13 +143,7 @@ export default class MovieListPresenter {
     const commentedFilms = new MoviePresenter(topFilmsWrapper, this._handleFilmChange, this._handleModeChange);
     const ratedFilms = new MoviePresenter(ratedFilmsWrapper, this._handleFilmChange, this._handleModeChange);
 
-    console.log(filmsList);
-    console.log(commentedFilms);
-    console.log(topFilmsWrapper);
-    console.log(ratedFilmsWrapper);
-
     for (let i = 0; i < TOP_FILMS; i++) {
-      console.log(filmsList[i]);
       commentedFilms.init(filmsList[i]);
     }
 
