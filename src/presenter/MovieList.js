@@ -33,9 +33,8 @@ export default class MovieListPresenter {
     this._sourcedFilmsList = filmsList.slice();
     this._renderFilter(this._filmsList);
     this._renderSort();
-    render(this._moviesContainer, this._contentContainer);
     this._renderFilmsList(this._filmsList);
-    this._renderTopRatedFilms(filmsList);
+    this._renderTopRatedFilms(this._filmsList);
   }
 
   _handleModeChange() {
@@ -131,6 +130,7 @@ export default class MovieListPresenter {
       this._renderEmptyList();
       return;
     }
+    render(this._moviesContainer, this._contentContainer);
     this._renderFilmCards(0, Math.min(this._filmsList.length, this._renderedCards));
     if (this._filmsList.length > this._renderedCards) {
       this._renderLoadMoreButton();
@@ -138,12 +138,18 @@ export default class MovieListPresenter {
   }
 
   _renderTopRatedFilms(filmsList) {
-    const TOP_FILMS = 2;
+    const TOP_FILMS = 4;
     const [topFilmsWrapper, ratedFilmsWrapper] = document.querySelectorAll(`.films-list--extra .films-list__container`);
     const topFilms = new MoviePresenter(topFilmsWrapper, this._handleFilmChange, this._handleModeChange);
     const ratedFilms = new MoviePresenter(ratedFilmsWrapper, this._handleFilmChange, this._handleModeChange);
 
+    console.log(filmsList);
+    console.log(topFilms);
+    console.log(topFilmsWrapper);
+    console.log(ratedFilmsWrapper);
+
     for (let i = 0; i < TOP_FILMS; i++) {
+      console.log(filmsList[i]);
       topFilms.init(filmsList[i]);
     }
 

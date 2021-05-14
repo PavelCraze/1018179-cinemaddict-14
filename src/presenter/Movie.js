@@ -40,7 +40,9 @@ export default class MoviePresenter {
     this._filmCard.setWatchedButtonClickHandler(this._handleWatchedClick);
     this._filmCard.setWatchlistButtonClickHandler(this._handleWatchlistClick);
 
-
+    console.log(this._mode);
+    console.log(prevFilmCard);
+    console.log(prevPopup);
     if (prevFilmCard === null || prevPopup === null) {
       render(this._filmsListContainer, this._filmCard);
       return;
@@ -49,9 +51,14 @@ export default class MoviePresenter {
     if (this._mode === Mode.CARD) {
       replace(this._filmCard, prevFilmCard);
     }
+
     if (this._mode === Mode.POPUP) {
       replace(this._popup, prevPopup);
+      replace(this._filmCard, prevFilmCard);
     }
+
+    remove(prevFilmCard);
+    remove(prevPopup);
   }
 
   _replaceFilmCardToPopup() {
@@ -90,7 +97,7 @@ export default class MoviePresenter {
 
   destroy() {
     remove(this._filmCard);
-    // remove(this._popup);
+    remove(this._popup);
   }
 
   resetView() {
