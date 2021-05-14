@@ -40,9 +40,6 @@ export default class MoviePresenter {
     this._filmCard.setWatchedButtonClickHandler(this._handleWatchedClick);
     this._filmCard.setWatchlistButtonClickHandler(this._handleWatchlistClick);
 
-    console.log(this._mode);
-    console.log(prevFilmCard);
-    console.log(prevPopup);
     if (prevFilmCard === null || prevPopup === null) {
       render(this._filmsListContainer, this._filmCard);
       return;

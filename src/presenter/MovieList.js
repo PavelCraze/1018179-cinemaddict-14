@@ -140,17 +140,17 @@ export default class MovieListPresenter {
   _renderTopRatedFilms(filmsList) {
     const TOP_FILMS = 4;
     const [topFilmsWrapper, ratedFilmsWrapper] = document.querySelectorAll(`.films-list--extra .films-list__container`);
-    const topFilms = new MoviePresenter(topFilmsWrapper, this._handleFilmChange, this._handleModeChange);
+    const commentedFilms = new MoviePresenter(topFilmsWrapper, this._handleFilmChange, this._handleModeChange);
     const ratedFilms = new MoviePresenter(ratedFilmsWrapper, this._handleFilmChange, this._handleModeChange);
 
     console.log(filmsList);
-    console.log(topFilms);
+    console.log(commentedFilms);
     console.log(topFilmsWrapper);
     console.log(ratedFilmsWrapper);
 
     for (let i = 0; i < TOP_FILMS; i++) {
       console.log(filmsList[i]);
-      topFilms.init(filmsList[i]);
+      commentedFilms.init(filmsList[i]);
     }
 
     for (let i = 0; i < TOP_FILMS; i++) {
