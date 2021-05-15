@@ -5,7 +5,7 @@ const isBlackListClassName = (className) => CLASS_NAMES_BLACK_LIST.includes(clas
 
 export default class FilmCard extends AbstractComponent {
 
-  constructor({title, rating, date, duration, genreNames, poster, description, comments}) {
+  constructor({title, rating, date, duration, genreNames, poster, description, comments, isWatchlist, isFavorite, isHistory, id}) {
     super();
     this._element = null;
     this._title = title;
@@ -15,11 +15,19 @@ export default class FilmCard extends AbstractComponent {
     this._genreNames = genreNames;
     this._poster = poster;
     this._description = description;
+    this._id = id;
     this._comments = comments;
+    this._isWatchlist = isWatchlist;
+    this._isHistory = isHistory;
+    this._isFavorite = isFavorite;
+
 
     this._callback = {};
 
     this._clickHandler = this._clickHandler.bind(this);
+    this._favoriteButtonClickHandler = this._favoriteButtonClickHandler.bind(this);
+    this._watchedButtonClickHandler = this._watchedButtonClickHandler.bind(this);
+    this._watchlistButtonClickHandler = this._watchlistButtonClickHandler.bind(this);
 
   }
 
@@ -37,9 +45,9 @@ export default class FilmCard extends AbstractComponent {
       <p class="film-card__description">${this._description}</p>
       <a class="film-card__comments">${this._comments.length} comments</a>
       <form class="film-card__controls">
-        <button class="film-card__controls-item button film-card__controls-item--add-to-watchlist">Add to watchlist</button>
-        <button class="film-card__controls-item button film-card__controls-item--mark-as-watched">Mark as watched</button>
-        <button class="film-card__controls-item button film-card__controls-item--favorite">Mark as favorite</button>
+      <button class="film-card__controls-item button film-card__controls-item--add-to-watchlist ${this._isWatchlist ? `film-card__controls-item--active` : ``}" type="button">Add to watchlist</button>
+      <button class="film-card__controls-item button film-card__controls-item--mark-as-watched ${this._isHistory ? `film-card__controls-item--active` : ``}" type="button">Mark as watched</button>
+      <button class="film-card__controls-item button film-card__controls-item--favorite ${this._isFavorite ? `film-card__controls-item--active` : ``}" type="button">Mark as favorite</button>
       </form>
   </article>`);
   }
@@ -58,6 +66,55 @@ export default class FilmCard extends AbstractComponent {
 
     this.getElement()
       .addEventListener(`click`, this._clickHandler);
+  }
+
+  _favoriteButtonClickHandler(evt) {
+    evt.preventDefault();
+
+    this._callback.clickFavorite(this._id);
+  }
+
+  _watchedButtonClickHandler(evt) {
+    evt.preventDefault();
+
+    this._callback.clickWatched(this._id);
+  }
+
+  _watchlistButtonClickHandler(evt) {
+    evt.preventDefault();
+
+    this._callback.clickWatchlist(this._id);
+  }
+
+  setClickHandler(callback) {
+    this._callback.click = callback;
+
+    this.getElement()
+      .addEventListener(`click`, this._clickHandler);
+  }
+
+  setFavoriteButtonClickHandler(callback) {
+    this._callback.clickFavorite = callback;
+
+    this.getElement()
+      .querySelector(`.film-card__controls-item--favorite`)
+      .addEventListener(`click`, this._favoriteButtonClickHandler);
+  }
+
+  setWatchedButtonClickHandler(callback) {
+    this._callback.clickWatched = callback;
+
+    this.getElement()
+      .querySelector(`.film-card__controls-item--mark-as-watched`)
+      .addEventListener(`click`, this._watchedButtonClickHandler);
+  }
+
+  setWatchlistButtonClickHandler(callback) {
+    this._callback.clickWatchlist = callback;
+
+    this.getElement()
+      .querySelector(`.film-card__controls-item--add-to-watchlist`)
+      .addEventListener(`click`, this._watchlistButtonClickHandler);
   }
 }
 

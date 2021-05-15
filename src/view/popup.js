@@ -2,7 +2,7 @@ import {emojies} from "../const";
 import AbstractComponent from "./abstract-component";
 
 export default class Popup extends AbstractComponent {
-  constructor({poster, title, age, director, writers, actors, rating, date, duration, country, genreNames, description, comments}) {
+  constructor({poster, title, age, director, writers, actors, rating, date, duration, country, genreNames, description, comments, isWatchlist, isHistory, isFavorite, id}) {
     super();
     this._element = null;
     this._poster = poster;
@@ -18,9 +18,16 @@ export default class Popup extends AbstractComponent {
     this._genreNames = genreNames;
     this._description = description;
     this._comments = comments;
+    this._isWatchlist = isWatchlist;
+    this._isHistory = isHistory;
+    this._isFavorite = isFavorite;
+    this._id = id;
     this._callback = {};
 
     this._closeButtonClickHandler = this._closeButtonClickHandler.bind(this);
+    this._favoriteCheckboxClickHandler = this._favoriteCheckboxClickHandler.bind(this);
+    this._watchedCheckboxClickHandler = this._watchedCheckboxClickHandler.bind(this);
+    this._watchlistCheckboxClickHandler = this._watchlistCheckboxClickHandler.bind(this);
   }
 
   getTemplate() {
@@ -90,11 +97,11 @@ export default class Popup extends AbstractComponent {
           </div>
         </div>
         <section class="film-details__controls">
-          <input type="checkbox" class="film-details__control-input visually-hidden" id="watchlist" name="watchlist">
+          <input type="checkbox" class="film-details__control-input visually-hidden" ${this._isWatchlist ? `checked` : ``} id="watchlist" name="watchlist">
           <label for="watchlist" class="film-details__control-label film-details__control-label--watchlist">Add to watchlist</label>
-          <input type="checkbox" class="film-details__control-input visually-hidden" id="watched" name="watched">
+          <input type="checkbox" class="film-details__control-input visually-hidden" ${this._isHistory ? `checked` : ``} id="watched" name="watched">
           <label for="watched" class="film-details__control-label film-details__control-label--watched">Already watched</label>
-          <input type="checkbox" class="film-details__control-input visually-hidden" id="favorite" name="favorite">
+          <input type="checkbox" class="film-details__control-input visually-hidden" ${this._isFavorite ? `checked` : ``} id="favorite" name="favorite">
           <label for="favorite" class="film-details__control-label film-details__control-label--favorite">Add to favorites</label>
         </section>
       </div>
@@ -159,4 +166,41 @@ export default class Popup extends AbstractComponent {
       .querySelector(`.film-details__close-btn`)
       .addEventListener(`click`, this._closeButtonClickHandler);
   }
+
+  _favoriteCheckboxClickHandler() {
+    this._callback.clickFavorite(this._id);
+  }
+
+  _watchedCheckboxClickHandler() {
+    this._callback.clickWatched(this._id);
+  }
+
+  _watchlistCheckboxClickHandler() {
+    this._callback.clickWatchlist(this._id);
+  }
+
+  setFavoriteCheckboxClickHandler(callback) {
+    this._callback.clickFavorite = callback;
+
+    this.getElement()
+      .querySelector(`#favorite`)
+      .addEventListener(`click`, this._favoriteCheckboxClickHandler);
+  }
+
+  setWatchedCheckboxClickHandler(callback) {
+    this._callback.clickWatched = callback;
+
+    this.getElement()
+      .querySelector(`#watched`)
+      .addEventListener(`click`, this._watchedCheckboxClickHandler);
+  }
+
+  setWatchlistCheckboxClickHandler(callback) {
+    this._callback.clickWatchlist = callback;
+
+    this.getElement()
+      .querySelector(`#watchlist`)
+      .addEventListener(`click`, this._watchlistCheckboxClickHandler);
+  }
 }
+

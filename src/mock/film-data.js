@@ -52,18 +52,28 @@ const comments = [{
   text: `Very very bad. Sad`,
   author: `Billy Joe`,
   emoji: `angry`,
-  day: `2 days ago`
+  day: `23 days ago`
 }, {
   text: `Tooo long`,
   author: `Harry Dotter`,
   emoji: `sleeping`,
   day: `Today`
+},
+{
+  text: `Nice Job u fixed it`,
+  author: `Alex Pavlov`,
+  emoji: `smile`,
+  day: `14 days ago`
 }];
 
 const startDate = new Date(1920, 1, 1).getTime();
 const finalDate = new Date(2020, 3, 1).getTime();
 const durations = [`1h 40m`, `2h 25m`, `2h 45m`];
-const booleanValues = [`true`, `false`];
+const booleanValues = [true, false];
+
+const id = () =>{
+  return getRandomInRange(0, 1e6).toString();
+};
 
 const generateFilmCard = () => {
   return {
@@ -83,6 +93,7 @@ const generateFilmCard = () => {
     isHistory: booleanValues[getRandomInRange(0, booleanValues.length - 1)],
     isWatchlist: booleanValues[getRandomInRange(0, booleanValues.length - 1)],
     duration: durations[getRandomInRange(0, durations.length - 1)],
+    id: id()
   };
 };
 
