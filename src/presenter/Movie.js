@@ -49,8 +49,8 @@ export default class MoviePresenter {
     }
 
     if (this._mode === Mode.POPUP) {
-      replace(this._popup, prevPopup);
       replace(this._filmCard, prevFilmCard);
+      replace(this._popup, prevPopup);
     }
 
     remove(prevFilmCard);
@@ -65,6 +65,7 @@ export default class MoviePresenter {
     this._popup.setFavoriteCheckboxClickHandler(this._handleFavoriteClick);
     this._popup.setWatchedCheckboxClickHandler(this._handleWatchedClick);
     this._popup.setWatchlistCheckboxClickHandler(this._handleWatchlistClick);
+    this._popup.addEmojiHandler();
     this._changeMode();
     this._mode = Mode.POPUP;
   }
